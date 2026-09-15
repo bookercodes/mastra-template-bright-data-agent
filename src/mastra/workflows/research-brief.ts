@@ -58,10 +58,16 @@ const writeBriefStep = createStep({
       `Turn these findings into a brief on "${inputData.topic}". Use only what the sources below support.
 
 ${inputData.findings}`,
-      { structuredOutput: { schema: briefSchema } },
+      {
+        // This step formats the gathered sources; research happens above.
+        instructions: 'Write a research brief using only the supplied findings. Preserve source URLs and identify gaps instead of inventing details.',
+        toolChoice: 'none',
+        maxSteps: 1,
+        structuredOutput: { schema: briefSchema },
+      },
     );
 
-    return result.object as z.infer<typeof briefSchema>;
+    return result.object;
   },
 });
 
