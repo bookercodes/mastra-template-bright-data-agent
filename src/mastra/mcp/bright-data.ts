@@ -31,9 +31,8 @@ function buildUrl(apiToken: string) {
 
 /**
  * The server is only registered when a token is present. Without it the client
- * has no servers, `listTools()` returns `{}`, and the app still starts, so
- * `mastra dev` opens and tells you what is missing instead of crashing on
- * import with a stack trace.
+ * has no servers and the app still starts. The first research request reports
+ * the missing token instead of generating an answer without web access.
  */
 export const brightData = new MCPClient({
   id: 'bright-data',
@@ -49,48 +48,27 @@ export const brightData = new MCPClient({
     : {},
 });
 
-const MISSING_TOKEN =
-  'BRIGHT_DATA_API_TOKEN is not set, so the agent has no web tools and will answer from memory. Get a free token at https://brightdata.com/cp/setting/users';
-
-const REJECTED_TOKEN =
-  'Connected to the Bright Data MCP server but received no tools, so the agent will answer from memory. This usually means BRIGHT_DATA_API_TOKEN is invalid or expired. Check it at https://brightdata.com/cp/setting/users';
-
 type BrightDataTools = Awaited<ReturnType<typeof brightData.listTools>>;
 
 let toolsPromise: Promise<BrightDataTools> | undefined;
 
-/**
- * Load the Bright Data tool set, once, on first use.
- *
- * A wrong or expired token does not fail the connection loudly, it comes back
- * with an empty tool list, which would leave the agent quietly answering from
- * memory instead of from the web. That case is worth shouting about, so it is
- * logged as an error even though it does not stop the server.
- */
+// Share successful tool discovery across requests. Retry discovery on the next
+// request if it fails, and never run research without web tools.
 export async function loadBrightDataTools() {
+  if (!token) {
+    throw new Error('Set BRIGHT_DATA_API_TOKEN in .env and restart the server to enable web research.');
+  }
+
   toolsPromise ??= (async () => {
-    if (!token) {
-      console.error(MISSING_TOKEN);
-      return {} as BrightDataTools;
+    const tools = await brightData.listTools();
+    if (Object.keys(tools).length === 0) {
+      throw new Error('Bright Data returned no tools. Check your API token and connection before trying again.');
     }
-
-    try {
-      const tools = await brightData.listTools();
-
-      if (Object.keys(tools).length === 0) {
-        console.error(REJECTED_TOKEN);
-      }
-
-      return tools;
-    } catch (error) {
-      console.error(
-        `Could not reach the Bright Data MCP server, so the agent has no web tools: ${
-          error instanceof Error ? error.message : String(error)
-        }`,
-      );
-      return {} as BrightDataTools;
-    }
-  })();
+    return tools;
+  })().catch(error => {
+    toolsPromise = undefined;
+    throw error;
+  });
 
   return toolsPromise;
 }

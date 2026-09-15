@@ -12,7 +12,7 @@ export const webAgent = new Agent({
 
 ## Your tools
 
-Every tool below runs through Bright Data's unblocking infrastructure, so bot detection, CAPTCHAs, rate limits, and geo-restrictions are handled for you. A page that blocks an ordinary fetch will come back normally here.
+Every tool below runs through Bright Data's unblocking infrastructure, which helps access pages protected by bot detection, CAPTCHAs, rate limits, and geo-restrictions. Requests can still fail or return incomplete content.
 
 - **brightData_search_engine**: search Google, Bing, or Yandex and get structured results. Your starting point for most questions.
 - **brightData_search_engine_batch**: run up to 10 searches in one call. Use it when a question has several distinct angles.
