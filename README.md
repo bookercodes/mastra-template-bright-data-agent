@@ -14,12 +14,10 @@ Web research requires both finding relevant pages and retrieving their content. 
 - Return research as JSON with `topic`, `summary`, `keyPoints`, and `sources` fields.
 - Enable platform-specific tools for product listings, company profiles, or social posts.
 
-## Requirements
+### Prerequisites
 
-- Node.js 22.18+ within the 22.x release line, or Node.js 24.11+.
-- pnpm 11.3.0, as specified in `package.json`.
-- An OpenAI API key.
-- A Bright Data API token.
+- [**OpenAI API key**](https://platform.openai.com/api-keys) — used by default, but you can swap in any model
+- [**Bright Data API token**](https://brightdata.com/cp/setting/users) — for web search and page scraping
 
 ## Quickstart 🚀
 
