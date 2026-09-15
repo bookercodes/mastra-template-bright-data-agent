@@ -6,6 +6,10 @@ Ask a question or provide a public URL. The agent searches the web, reads releva
 
 Web research requires both finding relevant pages and retrieving their content. Some sites block ordinary HTTP requests or return incomplete pages. This template uses Bright Data for search and page retrieval, with a conversational agent for questions and a workflow for structured research briefs. Retrieval can still fail, and answers depend on the sources available.
 
+## Demo
+
+<video controls width="640" height="360" src="https://res.cloudinary.com/mastra-assets/video/upload/v1789407162/bright-data-agent-demo_1_iclc5b.mp4"></video>
+
 ## Prerequisites
 
 - [**OpenAI API key**](https://platform.openai.com/api-keys): set `OPENAI_API_KEY` for the default model, `openai/gpt-5.6-luna`. You can change the model in the agent configuration; another provider may require different credentials.
@@ -32,10 +36,6 @@ Web research requires both finding relevant pages and retrieving their content. 
 
 - Open the project in your coding agent and ask: “Adapt the research brief to compare a list of product URLs, returning available prices, specifications, and source links. Explore the code and propose a plan before making changes.” The output schema and research prompts are in [the research workflow](src/mastra/workflows/research-brief.ts).
 - Connect the agent or workflow to an application using the [Mastra Client SDK](https://mastra.ai/docs/server/mastra-client).
-
-## Demo
-
-<video controls width="640" height="360" src="https://res.cloudinary.com/mastra-assets/video/upload/v1789407162/bright-data-agent-demo_1_iclc5b.mp4"></video>
 
 ## Platform-specific tools
 
