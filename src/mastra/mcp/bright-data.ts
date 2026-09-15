@@ -7,7 +7,7 @@ import { MCPClient } from '@mastra/mcp';
  * With no groups configured, the agent gets search and scraping:
  *   search_engine            Google, Bing, or Yandex results as structured data
  *   search_engine_batch      up to 10 searches in one call
- *   scrape_as_markdown       any URL as clean Markdown
+ *   scrape_as_markdown       read a public URL as Markdown
  *   scrape_batch             up to 10 URLs in one call
  *   ask_brightdata_assistant delegate an open-ended web question
  *
@@ -41,7 +41,7 @@ export const brightData = new MCPClient({
         // Tools arrive namespaced by this key, e.g. `brightData_search_engine`.
         brightData: {
           url: buildUrl(token),
-          // Unblocking a protected page can take a while. Give it room.
+          // Allow up to two minutes per MCP request.
           timeout: 120_000,
         },
       }

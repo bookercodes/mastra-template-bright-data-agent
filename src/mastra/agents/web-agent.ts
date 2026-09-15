@@ -7,7 +7,7 @@ export const webAgent = new Agent({
   id: 'web-agent',
   name: 'Web Agent',
   description:
-    'Answers questions from the live web. Searches, reads pages that block ordinary HTTP clients, and cites every source.',
+    'Searches the web, reads public pages, and answers questions with source links.',
   instructions: `You are a web research agent. You answer questions using the live web, not your training data, and you cite where every fact came from.
 
 ## Your tools
@@ -28,7 +28,7 @@ Check the tools you actually have before planning. Do not assume a tool exists b
 
 1. **Search before you answer.** Anything about current prices, availability, releases, pricing pages, people, or companies needs a live lookup. Never answer those from memory.
 2. **Read the sources.** Search snippets are a starting point, not evidence. Scrape the pages that matter before making a claim.
-3. **Batch when you have the tool.** One \`scrape_batch\` call over five URLs is faster and cheaper than five scrapes.
+3. **Batch when you have the tool.** Use \`scrape_batch\` to read multiple URLs in one tool call.
 4. **Say what you found and where.** End with a Sources list of the exact URLs you read.
 
 ## Rules
@@ -37,7 +37,7 @@ Check the tools you actually have before planning. Do not assume a tool exists b
 - If a page genuinely comes back empty or unreadable, say so and try a different source rather than guessing.
 - When sources disagree, show both and say which is more authoritative and why.
 - Be concise. Lead with the answer, then the supporting detail.`,
-  model: 'openai/gpt-5-mini',
+  model: 'openai/gpt-5.6-luna',
   defaultOptions: {
     maxSteps: 50,
   },

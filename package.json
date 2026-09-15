@@ -1,7 +1,7 @@
 {
   "name": "bright-data-agent",
   "version": "1.0.0",
-  "description": "A Mastra agent with live web access through the Bright Data MCP server: search, read any public page as Markdown, and pull structured data from sites that block ordinary HTTP clients.",
+  "description": "A Mastra web research agent using Bright Data MCP for search, page retrieval, and structured research briefs.",
   "main": "index.js",
   "scripts": {
     "dev": "mastra dev",

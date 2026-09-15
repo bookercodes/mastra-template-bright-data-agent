@@ -1,10 +1,29 @@
-node_modules
-dist
-.mastra
+# Dependencies and build output
+node_modules/
+dist/
+.mastra/
+*.tsbuildinfo
+
+# Local credentials; keep the setup example tracked
 .env
-.env.development
+.env.*
+!.env.example
+
+# Local databases and SQLite journal, WAL, and shared-memory files
 *.db
 *.db-*
-.netlify
-.vercel
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Logs and OS metadata
+*.log
+.DS_Store
+
+# Deployment output
+.netlify/
+.vercel/
+
+# This project specifies pnpm
 package-lock.json

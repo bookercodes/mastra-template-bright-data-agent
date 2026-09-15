@@ -8,7 +8,7 @@ Web research requires both finding relevant pages and retrieving their content. 
 
 ## Prerequisites
 
-- [**OpenAI API key**](https://platform.openai.com/api-keys): set `OPENAI_API_KEY` for the default model, `openai/gpt-5-mini`. You can change the model in the agent configuration; another provider may require different credentials.
+- [**OpenAI API key**](https://platform.openai.com/api-keys): set `OPENAI_API_KEY` for the default model, `openai/gpt-5.6-luna`. You can change the model in the agent configuration; another provider may require different credentials.
 - [**Bright Data API token**](https://brightdata.com/cp/setting/users): set `BRIGHT_DATA_API_TOKEN` for web search and page scraping.
 
 ## Quickstart 🚀
