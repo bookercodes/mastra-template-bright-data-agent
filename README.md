@@ -21,43 +21,18 @@ Web research requires both finding relevant pages and retrieving their content. 
 - An OpenAI API key.
 - A Bright Data API token.
 
-## Quick start
+## Quickstart 🚀
 
-### 1. Clone the template
+1. **Clone the template**
+   - Run `npx create-mastra@latest --template bright-data-agent` to scaffold the project locally.
+2. **Add your API keys**
+   - Copy `.env.example` to `.env` and fill in your keys.
+3. **Start the dev server**
+   - Run `npm run dev` and open [localhost:4111](http://localhost:4111) to try it out.
 
-Scaffold a project:
+Set `OPENAI_API_KEY` and `BRIGHT_DATA_API_TOKEN` in `.env`. Leave `BRIGHT_DATA_MCP_GROUPS` empty to use the default search and scraping tools. Restart the server after changing your keys.
 
-```bash
-npx create-mastra@latest --template bright-data-agent
-```
-
-Enter the project directory created by the command. If you cloned this repository directly, install its dependencies:
-
-```bash
-cd mastra-template-bright-data-agent
-pnpm install
-```
-
-### 2. Add your API keys
-
-Copy the example environment file:
-
-```bash
-cp .env.example .env
-```
-
-Set both values in `.env`:
-
-- `OPENAI_API_KEY`: an [OpenAI API key](https://platform.openai.com/api-keys) for the agent’s default model, `openai/gpt-5-mini`.
-- `BRIGHT_DATA_API_TOKEN`: a [Bright Data API token](https://brightdata.com/cp/setting/users) for search and page retrieval.
-
-Leave `BRIGHT_DATA_MCP_GROUPS` empty to use the default search and scraping tools. Restart the server after changing your keys.
-
-### 3. Start the dev server
-
-```bash
-pnpm run dev
-```
+If you cloned this repository directly, run `npm install` in the repository directory before starting the dev server.
 
 Open the Studio URL printed in your terminal, normally [localhost:4111](http://localhost:4111). Select **Web Agent** and enter:
 
