@@ -30,7 +30,7 @@ Web research requires both finding relevant pages and retrieving their content. 
 
 - Ask **Web Agent**: “Read https://www.amazon.com/dp/B0BDHWDR12 and report the product name, current price, and star rating. Include the source URL and identify any fields you cannot retrieve.” Look for details supported by the page and an explanation of anything missing. Product availability and page content may vary.
 - Ask **Web Agent**: “Compare SQLite and PostgreSQL for a small web application using their official documentation. Read the relevant pages and include source links.” Look for a comparison based on retrieved pages, with links you can inspect.
-- Run **research-brief** with `{"topic":"What are the differences between SQLite and PostgreSQL for a small web application? Use their official documentation."}`. The workflow searches and reads sources, then returns JSON containing `topic`, `summary`, `keyPoints`, and source titles and URLs.
+- Run **research-brief** with `{"topic":"What are the differences between SQLite and PostgreSQL for a small web application? Use their official documentation."}`. The workflow first searches and reads sources, then writes a brief from those findings with no further web calls. The JSON result contains `topic`, `summary`, `keyPoints`, and source titles and URLs.
 
 ## Customization
 
@@ -39,7 +39,7 @@ Web research requires both finding relevant pages and retrieving their content. 
 
 ## Platform-specific tools
 
-Set `BRIGHT_DATA_MCP_GROUPS` in `.env` to enable a platform group:
+Set `BRIGHT_DATA_MCP_GROUPS` in `.env` and restart the dev server to enable a platform group:
 
 ```bash
 BRIGHT_DATA_MCP_GROUPS=ecommerce
