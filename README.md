@@ -6,49 +6,33 @@ Ask a question or provide a public URL. The agent searches the web, reads releva
 
 Web research requires both finding relevant pages and retrieving their content. Some sites block ordinary HTTP requests or return incomplete pages. This template uses Bright Data for search and page retrieval, with a conversational agent for questions and a workflow for structured research briefs. Retrieval can still fail, and answers depend on the sources available.
 
-## Features
+## Prerequisites
 
-- Search Google, Bing, or Yandex and read public pages as Markdown.
-- Answer questions with links to the pages used as sources.
-- Batch up to ten searches or page reads when using the default tools.
-- Return research as JSON with `topic`, `summary`, `keyPoints`, and `sources` fields.
-- Enable platform-specific tools for product listings, company profiles, or social posts.
-
-### Prerequisites
-
-- [**OpenAI API key**](https://platform.openai.com/api-keys) — used by default, but you can swap in any model
-- [**Bright Data API token**](https://brightdata.com/cp/setting/users) — for web search and page scraping
+- [**OpenAI API key**](https://platform.openai.com/api-keys) — set `OPENAI_API_KEY` for the default model, `openai/gpt-5-mini`. You can change the model in the agent configuration; another provider may require different credentials.
+- [**Bright Data API token**](https://brightdata.com/cp/setting/users) — set `BRIGHT_DATA_API_TOKEN` for web search and page scraping.
+- Leave the optional `BRIGHT_DATA_MCP_GROUPS` value empty for the default search and scraping tools. See Platform-specific tools below for other options.
 
 ## Quickstart 🚀
 
 1. **Clone the template**
    - Run `npx create-mastra@latest --template bright-data-agent` to scaffold the project locally.
+   - Enter the generated project directory and run `npm install` if dependencies were not installed during setup.
 2. **Add your API keys**
-   - Copy `.env.example` to `.env` and fill in your keys.
+   - Run `cp .env.example .env` and fill in the values described under Prerequisites.
 3. **Start the dev server**
-   - Run `npm run dev` and open [localhost:4111](http://localhost:4111) to try it out.
+   - Run `npm run dev` and open [localhost:4111](http://localhost:4111), or the Studio URL printed in your terminal.
+   - Select **Web Agent** and try the product-page prompt below. The agent should return available product details with a source link.
 
-Set `OPENAI_API_KEY` and `BRIGHT_DATA_API_TOKEN` in `.env`. Leave `BRIGHT_DATA_MCP_GROUPS` empty to use the default search and scraping tools. Restart the server after changing your keys.
+## Try it out
 
-If you cloned this repository directly, run `npm install` in the repository directory before starting the dev server.
+- Ask **Web Agent**: “Read https://www.amazon.com/dp/B0BDHWDR12 and report the product name, current price, and star rating. Include the source URL and identify any fields you cannot retrieve.” Look for details supported by the page and an explanation of anything missing. Product availability and page content may vary.
+- Ask **Web Agent**: “Compare SQLite and PostgreSQL for a small web application using their official documentation. Read the relevant pages and include source links.” Look for a comparison based on retrieved pages, with links you can inspect.
+- Run **research-brief** with `{"topic":"What are the differences between SQLite and PostgreSQL for a small web application? Use their official documentation."}`. The workflow searches and reads sources, then returns JSON containing `topic`, `summary`, `keyPoints`, and source titles and URLs.
 
-Open the Studio URL printed in your terminal, normally [localhost:4111](http://localhost:4111). Select **Web Agent** and enter:
+## Customization
 
-> Read https://www.amazon.com/dp/B0BDHWDR12 and report the product name, current price, and star rating. Include the source URL and identify any fields you cannot retrieve.
-
-The agent should return the available product details with a source link. Product availability and page content may vary.
-
-To try structured output, select the **research-brief** workflow and run it with:
-
-```json
-{
-  "topic": "What are the differences between SQLite and PostgreSQL for a small web application? Use their official documentation."
-}
-```
-
-The workflow searches and reads sources, then returns a JSON brief containing a summary, key points, and source titles and URLs.
-
-Studio can start without a Bright Data token, but research requests require working web tools. If tool discovery fails, the request reports an error and the next request tries discovery again.
+- Open the project in your coding agent and ask: “Adapt the research brief to compare a list of product URLs, returning available prices, specifications, and source links. Explore the code and propose a plan before making changes.” The output schema and research prompts are in [the research workflow](src/mastra/workflows/research-brief.ts).
+- Connect the agent or workflow to an application using the [Mastra Client SDK](https://mastra.ai/docs/server/mastra-client).
 
 ## Platform-specific tools
 
@@ -74,13 +58,14 @@ The hosted server has these configuration constraints:
 
 Leave the variable empty unless you need a particular group.
 
-## Making it yours
-
-- Change `briefSchema` and the prompts in [the research workflow](src/mastra/workflows/research-brief.ts) to produce fields for your application, such as product comparisons or company research.
-- Connect the agent or workflow to an application using the [Mastra Client SDK](https://mastra.ai/docs/server/mastra-client).
-
 For an alternative to the hosted MCP connection, [`@mastra/brightdata`](https://mastra.ai/integrations/tools/brightdata) provides search and page-fetching tools through the Bright Data SDK. It requires Bright Data zones configured on your account and does not include the MCP batch tools or platform groups described above.
+
+## Tool connection errors
+
+Studio can start without a Bright Data token, but research requests require working web tools. If tool discovery fails, the request reports an error and the next request tries discovery again. Restart the server after changing your API keys.
 
 ## About Mastra templates
 
-[Mastra templates](https://mastra.ai/templates) are example projects built with Mastra. The [contributing guide](./CONTRIBUTING.md) describes how to submit changes through the Mastra monorepo.
+This partnership template was contributed by Bright Data to show how Mastra uses Bright Data’s search and page-retrieval tools for web research. Partnership templates live in their own repositories.
+
+[Want to contribute?](https://github.com/danielsha-brd/mastra-template-bright-data-agent)
