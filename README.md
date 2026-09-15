@@ -33,6 +33,10 @@ Web research requires both finding relevant pages and retrieving their content. 
 - Open the project in your coding agent and ask: “Adapt the research brief to compare a list of product URLs, returning available prices, specifications, and source links. Explore the code and propose a plan before making changes.” The output schema and research prompts are in [the research workflow](src/mastra/workflows/research-brief.ts).
 - Connect the agent or workflow to an application using the [Mastra Client SDK](https://mastra.ai/docs/server/mastra-client).
 
+## Demo
+
+<video controls width="640" height="360" src="https://res.cloudinary.com/mastra-assets/video/upload/v1789407162/bright-data-agent-demo_1_iclc5b.mp4"></video>
+
 ## Platform-specific tools
 
 Set `BRIGHT_DATA_MCP_GROUPS` in `.env` to enable a platform group:
